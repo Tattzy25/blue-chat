@@ -38,7 +38,7 @@ import { cn } from "@/lib/utils";
 import type { ChatStatus, FileUIPart } from "ai";
 import {
   CornerDownLeftIcon,
-  imgIcon,
+  ImageIcon,
   Loader2Icon,
   MicIcon,
   PaperclipIcon,
@@ -422,7 +422,7 @@ export const PromptInputActionAddAttachments = ({
         attachments.openFileDialog();
       }}
     >
-      <imgIcon className="mr-2 size-4" /> {label}
+      <ImageIcon className="mr-2 size-4" /> {label}
     </DropdownMenuItem>
   );
 };
