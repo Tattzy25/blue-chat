@@ -110,7 +110,7 @@ pnpm build
 **CRITICAL RULES**:
 1. **NEVER use npm or yarn** - pnpm-lock.yaml is 270KB and incompatible
 2. **ALWAYS use `--frozen-lockfile`** - prevents accidental dependency updates
-3. **Build WILL SUCCEED with ESLint errors** - ~27 problems in current codebase
+3. **Build WILL SUCCEED with ESLint errors** - 25 problems (10 errors, 15 warnings) in current codebase
 
 ### Development Workflow
 ```powershell
@@ -170,18 +170,17 @@ pnpm start
 # Run ESLint (Next.js integrated)
 pnpm lint
 
-# Exit Code: 1 (FAILS with ~27 problems)
+# Exit Code: 1 (FAILS with 25 problems - 10 errors, 15 warnings)
 # Scopes: app/, components/, lib/, hooks/ (via eslint.config.mjs)
 ```
 
-**KNOWN LINT FAILURES** (~27 total problems):
-1. **app/page.tsx** - 4 errors: Component named `Chatbot` violates React naming rules (must be uppercase)
-2. **components/ai-elements/prompt-input.tsx** - 6 errors: `@ts-expect-error` suppressions, ref access during render
-3. **components/ai-elements/inline-citation.tsx** - 1 error: setState in useEffect
-4. **components/ai-elements/reasoning.tsx** - 1 error: setState in useEffect
-5. **components/ai-elements/shimmer.tsx** - 1 error: Component created during render
-6. **components/ui/sidebar.tsx** - 1 error: Math.random() in render (impure function)
-7. **15 warnings**: Unused variables, `<img>` instead of `<Image>`, exhaustive-deps
+**KNOWN LINT FAILURES** (25 total problems):
+1. **components/ai-elements/prompt-input.tsx** - 8 errors: ref access during render, setState in useEffect, `any` types
+2. **components/ai-elements/inline-citation.tsx** - 1 error: setState in useEffect
+3. **components/ai-elements/reasoning.tsx** - 1 error: setState in useEffect
+4. **components/ai-elements/shimmer.tsx** - 1 error: Component created during render
+5. **components/ui/sidebar.tsx** - 1 error: Math.random() in render (impure function)
+6. **15 warnings**: Unused variables, `<img>` instead of `<Image>`, exhaustive-deps
 
 **CRITICAL**: `pnpm build` SUCCEEDS despite lint failures (ESLint not blocking builds)
 
@@ -623,7 +622,7 @@ mcp_context7_get-library-docs({
 - ✅ `pnpm install --frozen-lockfile` - 13.8s (validated)
 - ✅ `pnpm build` - 20.2s with full TypeScript validation (validated)
 - ✅ `pnpm dev` - Starts in 8-10s, auto-handles port conflicts
-- ❌ `pnpm lint` - FAILS with ~27 problems
+- ❌ `pnpm lint` - FAILS with 25 problems (10 errors, 15 warnings)
 - ❌ `pnpm start` - Requires port 3000 free (no auto-fallback)
 
 **Critical Production Findings**:
@@ -635,7 +634,7 @@ mcp_context7_get-library-docs({
 
 **Deployment Readiness**:
 - ✅ TypeScript: Strict mode, compiles cleanly
-- ⚠️ ESLint: ~27 violations (non-blocking, should be fixed)
+- ⚠️ ESLint: 25 violations (10 errors, 15 warnings - non-blocking)
 - ✅ Build output: Optimized, 3 static pages, 1 dynamic API route
 - ✅ Vercel integration: Configured for blue-chat project
 - ❌ CI/CD: No GitHub Actions workflows configured
