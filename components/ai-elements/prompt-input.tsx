@@ -38,7 +38,7 @@ import { cn } from "@/lib/utils";
 import type { ChatStatus, FileUIPart } from "ai";
 import {
   CornerDownLeftIcon,
-  ImageIcon,
+  imgIcon,
   Loader2Icon,
   MicIcon,
   PaperclipIcon,
@@ -291,10 +291,10 @@ export function PromptInputAttachment({
   const filename = data.filename || "";
 
   const mediaType =
-    data.mediaType?.startsWith("image/") && data.url ? "image" : "file";
-  const isImage = mediaType === "image";
+    data.mediaType?.startsWith("img/") && data.url ? "img" : "file";
+  const isimg = mediaType === "img";
 
-  const attachmentLabel = filename || (isImage ? "Image" : "Attachment");
+  const attachmentLabel = filename || (isimg ? "img" : "Attachment");
 
   return (
     <PromptInputHoverCard>
@@ -309,7 +309,7 @@ export function PromptInputAttachment({
         >
           <div className="relative size-5 shrink-0">
             <div className="absolute inset-0 flex size-5 items-center justify-center overflow-hidden rounded bg-background transition-opacity group-hover:opacity-0">
-              {isImage ? (
+              {isimg ? (
                 <img
                   alt={filename || "attachment"}
                   className="size-5 object-cover"
@@ -343,7 +343,7 @@ export function PromptInputAttachment({
       </HoverCardTrigger>
       <PromptInputHoverCardContent className="w-auto p-2">
         <div className="w-auto space-y-3">
-          {isImage && (
+          {isimg && (
             <div className="flex max-h-96 w-96 items-center justify-center overflow-hidden rounded-md border">
               <img
                 alt={filename || "attachment preview"}
@@ -357,7 +357,7 @@ export function PromptInputAttachment({
           <div className="flex items-center gap-2.5">
             <div className="min-w-0 flex-1 space-y-1 px-0.5">
               <h4 className="truncate font-semibold text-sm leading-none">
-                {filename || (isImage ? "Image" : "Attachment")}
+                {filename || (isimg ? "img" : "Attachment")}
               </h4>
               {data.mediaType && (
                 <p className="truncate font-mono text-muted-foreground text-xs">
@@ -422,7 +422,7 @@ export const PromptInputActionAddAttachments = ({
         attachments.openFileDialog();
       }}
     >
-      <ImageIcon className="mr-2 size-4" /> {label}
+      <imgIcon className="mr-2 size-4" /> {label}
     </DropdownMenuItem>
   );
 };
@@ -436,7 +436,7 @@ export type PromptInputProps = Omit<
   HTMLAttributes<HTMLFormElement>,
   "onSubmit" | "onError"
 > & {
-  accept?: string; // e.g., "image/*" or leave undefined for any
+  accept?: string; // e.g., "img/*" or leave undefined for any
   multiple?: boolean;
   // When true, accepts drops anywhere on document. Default false (opt-in).
   globalDrop?: boolean;
@@ -501,7 +501,7 @@ export const PromptInput = ({
 
       return patterns.some((pattern) => {
         if (pattern.endsWith("/*")) {
-          const prefix = pattern.slice(0, -1); // e.g: image/* -> image/
+          const prefix = pattern.slice(0, -1); // e.g: img/* -> img/
           return f.type.startsWith(prefix);
         }
         return f.type === pattern;

@@ -46,7 +46,7 @@ const ShimmerComponent = ({
       style={
         {
           "--spread": `${dynamicSpread}px`,
-          backgroundImage:
+          backgroundimg:
             "var(--bg), linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))",
         } as CSSProperties
       }

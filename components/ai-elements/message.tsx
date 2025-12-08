@@ -335,9 +335,9 @@ export function MessageAttachment({
 }: MessageAttachmentProps) {
   const filename = data.filename || "";
   const mediaType =
-    data.mediaType?.startsWith("image/") && data.url ? "image" : "file";
-  const isImage = mediaType === "image";
-  const attachmentLabel = filename || (isImage ? "Image" : "Attachment");
+    data.mediaType?.startsWith("img/") && data.url ? "img" : "file";
+  const isimg = mediaType === "img";
+  const attachmentLabel = filename || (isimg ? "img" : "Attachment");
 
   return (
     <div
@@ -347,7 +347,7 @@ export function MessageAttachment({
       )}
       {...props}
     >
-      {isImage ? (
+      {isimg ? (
         <>
           <img
             alt={filename || "attachment"}

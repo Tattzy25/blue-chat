@@ -204,12 +204,12 @@ export const ChainOfThoughtContent = memo(
   }
 );
 
-export type ChainOfThoughtImageProps = ComponentProps<"div"> & {
+export type ChainOfThoughtimgProps = ComponentProps<"div"> & {
   caption?: string;
 };
 
-export const ChainOfThoughtImage = memo(
-  ({ className, children, caption, ...props }: ChainOfThoughtImageProps) => (
+export const ChainOfThoughtimg = memo(
+  ({ className, children, caption, ...props }: ChainOfThoughtimgProps) => (
     <div className={cn("mt-2 space-y-2", className)} {...props}>
       <div className="relative flex max-h-[22rem] items-center justify-center overflow-hidden rounded-lg bg-muted p-3">
         {children}
@@ -225,4 +225,4 @@ ChainOfThoughtStep.displayName = "ChainOfThoughtStep";
 ChainOfThoughtSearchResults.displayName = "ChainOfThoughtSearchResults";
 ChainOfThoughtSearchResult.displayName = "ChainOfThoughtSearchResult";
 ChainOfThoughtContent.displayName = "ChainOfThoughtContent";
-ChainOfThoughtImage.displayName = "ChainOfThoughtImage";
+ChainOfThoughtimg.displayName = "ChainOfThoughtimg";

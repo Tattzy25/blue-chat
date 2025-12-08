@@ -58,7 +58,7 @@ const models = [
     value: 'deepseek/deepseek-r1',
   },
 ];
-const chatbot = () => {
+const Chatbot = () => {
   const [input, setInput] = useState('');
   const [model, setModel] = useState<string>(models[0].value);
   const [webSearch, setWebSearch] = useState(false);
@@ -213,4 +213,4 @@ const chatbot = () => {
     </div>
   );
 };
-export default chatbot;
+export default Chatbot;

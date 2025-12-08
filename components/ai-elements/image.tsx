@@ -1,17 +1,17 @@
 import { cn } from "@/lib/utils";
-import type { Experimental_GeneratedImage } from "ai";
+import type { Experimental_Generatedimg } from "ai";
 
-export type ImageProps = Experimental_GeneratedImage & {
+export type imgProps = Experimental_Generatedimg & {
   className?: string;
   alt?: string;
 };
 
-export const Image = ({
+export const img = ({
   base64,
   uint8Array,
   mediaType,
   ...props
-}: ImageProps) => (
+}: imgProps) => (
   <img
     {...props}
     alt={props.alt}
