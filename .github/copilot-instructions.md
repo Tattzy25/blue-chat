@@ -9,7 +9,7 @@
 **Purpose**: Next.js 16 AI Chatbot with streaming AI responses, multi-provider LLM support (OpenAI GPT-4o, DeepSeek R1), web search integration (Perplexity), and 30+ custom UI components built with Vercel AI SDK v5.
 
 **Scale**: Medium application (69 source files, ~6,500 lines of code)
-- **Code Breakdown**: app/ (3 files), components/ (54 files), lib/ (1 file), hooks/ (1 file)
+- **Code Breakdown**: app/ (4 routes: /, /chat, /dashboard, /api/chat), components/ (54 files), lib/ (1 file), hooks/ (1 file)
 - **Technology Stack**: Next.js 16.0.7, React 19.2.0, TypeScript 5, Tailwind CSS 4, Vercel AI SDK v5.0.108
 - **Package Manager**: pnpm 10.24.0 (MANDATORY - lock file present, 270KB)
 - **Runtime**: Node.js v24.11.1 (required for API routes and streaming)
@@ -19,7 +19,7 @@
 ## Architecture Overview
 
 ```
-ai-Chatbot/
+ai-chatbot/
 ├── app/                          # Next.js App Router (v16)
 │   ├── layout.tsx                # Root layout with Geist fonts
 │   ├── page.tsx                  # Main chat interface (220 lines)
@@ -110,7 +110,7 @@ pnpm build
 **CRITICAL RULES**:
 1. **NEVER use npm or yarn** - pnpm-lock.yaml is 270KB and incompatible
 2. **ALWAYS use `--frozen-lockfile`** - prevents accidental dependency updates
-3. **Build WILL SUCCEED with ESLint errors** - 14 errors, 15 warnings in current codebase
+3. **Build WILL SUCCEED with ESLint errors** - ~27 problems in current codebase
 
 ### Development Workflow
 ```powershell
@@ -170,11 +170,11 @@ pnpm start
 # Run ESLint (Next.js integrated)
 pnpm lint
 
-# Exit Code: 1 (FAILS with 14 errors, 15 warnings)
+# Exit Code: 1 (FAILS with ~27 problems)
 # Scopes: app/, components/, lib/, hooks/ (via eslint.config.mjs)
 ```
 
-**KNOWN LINT FAILURES** (29 total problems):
+**KNOWN LINT FAILURES** (~27 total problems):
 1. **app/page.tsx** - 4 errors: Component named `Chatbot` violates React naming rules (must be uppercase)
 2. **components/ai-elements/prompt-input.tsx** - 6 errors: `@ts-expect-error` suppressions, ref access during render
 3. **components/ai-elements/inline-citation.tsx** - 1 error: setState in useEffect
@@ -426,9 +426,9 @@ const handleSubmit = (message: PromptInputMessage) => {
 
 ### HACK/TODO/FIXME Audit
 
-**@ts-expect-error Suppressions** (12 instances - all documented):
+**@ts-expect-error Suppressions** (8 instances - all documented):
 - `components/ai-elements/tool.tsx` (2): `state` property only available in AI SDK v6
-- `components/ai-elements/confirmation.tsx` (10): `state` property only available in AI SDK v6
+- `components/ai-elements/confirmation.tsx` (6): `state` property only available in AI SDK v6
 
 **Critical Finding**: Code uses AI SDK v5.0.108 but anticipates v6 features. All suppressions are intentional for forward compatibility.
 
@@ -463,7 +463,7 @@ const handleSubmit = (message: PromptInputMessage) => {
 ### Command Execution - Absolute Rules
 
 1. **ALWAYS use pnpm** - Never npm, yarn, or bun
-2. **ALWAYS use absolute paths** - Workspace root is `c:\Users\Digital\Downloads\code-chat\ai-Chatbot`
+2. **ALWAYS use absolute paths** - Workspace root is `c:\Users\Digital\Downloads\code-chat\ai-chatbot`
 3. **ALWAYS restart dev server after config changes** - next.config.ts, tsconfig.json, etc.
 4. **NEVER commit `.env.local`** - Excluded in .gitignore
 
@@ -623,19 +623,19 @@ mcp_context7_get-library-docs({
 - ✅ `pnpm install --frozen-lockfile` - 13.8s (validated)
 - ✅ `pnpm build` - 20.2s with full TypeScript validation (validated)
 - ✅ `pnpm dev` - Starts in 8-10s, auto-handles port conflicts
-- ❌ `pnpm lint` - FAILS with 29 problems (14 errors, 15 warnings)
+- ❌ `pnpm lint` - FAILS with ~27 problems
 - ❌ `pnpm start` - Requires port 3000 free (no auto-fallback)
 
 **Critical Production Findings**:
 1. **ESLint non-blocking**: Build succeeds despite 29 lint problems
 2. **Vercel AI Gateway**: Uses unified proxy, not direct provider keys
-3. **AI SDK v6 forward compatibility**: 12 `@ts-expect-error` suppressions documented
+3. **AI SDK v6 forward compatibility**: 8 `@ts-expect-error` suppressions documented
 4. **Port auto-switching**: Dev server gracefully handles occupied ports (3000→3001)
 5. **Turbopack enabled**: Next.js 16 uses Turbopack for 50% faster builds
 
 **Deployment Readiness**:
 - ✅ TypeScript: Strict mode, compiles cleanly
-- ⚠️ ESLint: 29 violations (non-blocking, should be fixed)
+- ⚠️ ESLint: ~27 violations (non-blocking, should be fixed)
 - ✅ Build output: Optimized, 3 static pages, 1 dynamic API route
 - ✅ Vercel integration: Configured for blue-chat project
 - ❌ CI/CD: No GitHub Actions workflows configured
