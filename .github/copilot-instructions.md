@@ -60,8 +60,8 @@ ai-Chatbot/
 **ACTUAL IMPLEMENTATION** (not what README suggests):
 ```env
 # .env.local (REQUIRED for runtime)
-AI_GATEWAY=vck_0fTDSzdQb5MTooqfbgKuKtRzE8rX0r2UQRYkqbB35BRmDdIJf72bOfSU
-VERCEL_OIDC_TOKEN=eyJhbGci...  # Long JWT token from Vercel
+AI_GATEWAY=your_vercel_ai_gateway_token_here
+VERCEL_OIDC_TOKEN=your_vercel_oidc_token_here
 ```
 
 **CRITICAL DISCREPANCY**: 
