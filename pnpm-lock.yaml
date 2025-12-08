@@ -44,6 +44,12 @@ importers:
       '@radix-ui/react-use-controllable-state':
         specifier: ^1.2.2
         version: 1.2.2(@types/react@19.2.7)(react@19.2.0)
+      '@upstash/search':
+        specifier: ^0.1.7
+        version: 0.1.7
+      '@upstash/search-ui':
+        specifier: ^0.1.5
+        version: 0.1.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@xyflow/react':
         specifier: ^12.10.0
         version: 12.10.0(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -1422,6 +1428,18 @@ packages:
     resolution: {integrity: sha512-lrW200hZdbfRtztbygyaq/6jP6AKE8qQN2KvPcJ+x7wiD038YtnYtZ82IMNJ69GJibV7bwL3y9FgK+5w/pYt6g==}
     cpu: [x64]
     os: [win32]
+
+  '@upstash/search-ui@0.1.5':
+    resolution: {integrity: sha512-yzNDnP7uIDcmAULBs7w+od7hdDkSuWcPJYextSR02J1QZ6yAJYBqPlU27GCuzJ/Nw/vPl1abhejv6+XXZQGJFw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+
+  '@upstash/search@0.1.7':
+    resolution: {integrity: sha512-rgJ52TP0eUPLFo4K6TZtiC7qICbJnEwkT+TqaDI1vN8/Hk6qidgNC9dpnUUXCiqfwogty1rlSyBhYfk6PRgXjA==}
+
+  '@upstash/vector@1.2.2':
+    resolution: {integrity: sha512-ptQ9xnxtKqmpNK52PCcHCszlPOLxIBfjsv7ty8RoF95pkjctS9rSjTQ3Pl9bx5VFbpDj+0dMXw88WLt6swDkgQ==}
 
   '@vercel/oidc@3.0.5':
     resolution: {integrity: sha512-fnYhv671l+eTTp48gB4zEsTW/YtRgRPnkI2nT7x6qw5rkI1Lq2hTmQIpHPgyThI0znLK+vX2n9XxKdXZ7BUbbw==}
@@ -4880,6 +4898,24 @@ snapshots:
 
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
+
+  '@upstash/search-ui@0.1.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@radix-ui/react-dialog': 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      clsx: 2.1.1
+      cmdk: 1.1.1(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+      tailwind-merge: 3.4.0
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+
+  '@upstash/search@0.1.7':
+    dependencies:
+      '@upstash/vector': 1.2.2
+
+  '@upstash/vector@1.2.2': {}
 
   '@vercel/oidc@3.0.5': {}
 

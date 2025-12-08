@@ -163,12 +163,19 @@ export const InlineCitationCarouselIndex = ({
       return;
     }
 
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
-
-    api.on("select", () => {
+    const updateState = () => {
+      setCount(api.scrollSnapList().length);
       setCurrent(api.selectedScrollSnap() + 1);
-    });
+    };
+
+    // Initial update on next tick to avoid setState during render
+    const timeoutId = setTimeout(updateState, 0);
+
+    api.on("select", updateState);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [api]);
 
   return (

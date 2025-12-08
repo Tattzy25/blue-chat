@@ -151,6 +151,7 @@ export const QueueItemimg = ({
   className,
   ...props
 }: QueueItemimgProps) => (
+  // eslint-disable-next-line @next/next/no-img-element -- Dynamic URL
   <img
     alt=""
     className={cn("h-8 w-8 rounded border object-cover", className)}

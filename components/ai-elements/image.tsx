@@ -11,14 +11,24 @@ export const img = ({
   uint8Array,
   mediaType,
   ...props
-}: imgProps) => (
-  <img
-    {...props}
-    alt={props.alt}
-    className={cn(
-      "h-auto max-w-full overflow-hidden rounded-md",
-      props.className
-    )}
-    src={`data:${mediaType};base64,${base64}`}
-  />
-);
+}: imgProps) => {
+  // Use base64 if available, otherwise convert uint8Array to base64
+  const imageSrc = base64
+    ? `data:${mediaType};base64,${base64}`
+    : uint8Array
+      ? `data:${mediaType};base64,${Buffer.from(uint8Array).toString("base64")}`
+      : "";
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      {...props}
+      alt={props.alt}
+      className={cn(
+        "h-auto max-w-full overflow-hidden rounded-md",
+        props.className
+      )}
+      src={imageSrc}
+    />
+  );
+};

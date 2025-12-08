@@ -33,7 +33,7 @@ import {
   PromptInputFooter,
   PromptInputTools,
 } from '@/components/ai-elements/prompt-input';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { CopyIcon, GlobeIcon, RefreshCcwIcon } from 'lucide-react';
 import {
@@ -84,7 +84,7 @@ const Chatbot = () => {
     setInput('');
   };
   return (
-    <div className="max-w-4xl mx-auto p-6 relative size-full h-screen">
+    <div className="max-w-4xl mx-auto p-6 relative size-full" style={{ height: 'calc(100vh - 80px)' }}>
       <div className="flex flex-col h-full">
         <Conversation className="h-full">
           <ConversationContent>

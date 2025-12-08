@@ -170,6 +170,7 @@ export const ModelSelectorLogo = ({
   className,
   ...props
 }: ModelSelectorLogoProps) => (
+  // eslint-disable-next-line @next/next/no-img-element -- External dynamic URL
   <img
     {...props}
     alt={`${provider} logo`}
