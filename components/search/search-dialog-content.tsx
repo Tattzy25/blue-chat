@@ -21,9 +21,9 @@ export function SearchDialogContent({
   results,
   onSearch,
   onSelect,
-  placeholder = "Search conversations...",
+  placeholder = "Search components...",
   emptyMessage = "No results found.",
-  groupHeading = "Conversations"
+  groupHeading = "Components"
 }: SearchDialogContentProps) {
   return (
     <Command>
@@ -40,15 +40,15 @@ export function SearchDialogContent({
               onSelect={() => onSelect(result)}
             >
               <div className="flex flex-col">
-                <span className="font-medium">{result.content.title}</span>
-                {result.content.content && (
+                <span className="font-medium">{result.content.Name}</span>
+                {result.content.ShortSummary && (
                   <span className="text-xs text-muted-foreground">
-                    {result.content.content}
+                    {result.content.ShortSummary}
                   </span>
                 )}
-                {result.content.timestamp && (
+                {result.content.Category && (
                   <span className="text-xs text-muted-foreground">
-                    {result.content.timestamp}
+                    {result.content.Category}
                   </span>
                 )}
               </div>

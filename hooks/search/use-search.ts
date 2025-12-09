@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { conversationsIndex } from '@/lib/search/indices';
+import { cmdkIndex } from '@/lib/search/indices';
 import { SearchResult, SearchOptions, UseSearchState } from '@/lib/search/types';
 
 export function useSearch(): UseSearchState & {
@@ -21,15 +21,17 @@ export function useSearch(): UseSearchState & {
     setState(prev => ({ ...prev, isLoading: true, error: null }));
 
     try {
-      const searchResults = await conversationsIndex.search({
+      const searchResults = await cmdkIndex.search({
         query: options.query,
         limit: options.limit ?? 10,
         reranking: options.reranking ?? true,
       });
 
       const results = searchResults.map((item): SearchResult => ({
-        id: item.id,
+        id: String(item.id),
         content: item.content,
+        metadata: item.metadata,
+        score: item.score,
       }));
 
       setState(prev => ({ ...prev, results, isLoading: false }));

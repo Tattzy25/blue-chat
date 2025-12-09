@@ -1,60 +1,69 @@
 "use client";
 
-import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { useSearch, useCommandK } from "@/hooks/search";
-import { SearchResult } from "@/lib/search/types";
-import { SearchTrigger } from "./search-trigger";
-import { SearchDialogContent } from "./search-dialog-content";
+import { SearchBar } from "@upstash/search-ui";
+import "@upstash/search-ui/dist/index.css";
+import { Search } from "@upstash/search";
+import { FileText } from "lucide-react";
+
+const client = new Search({
+  url: process.env.NEXT_PUBLIC_UPSTASH_SEARCH_REST_URL!,
+  token: process.env.NEXT_PUBLIC_UPSTASH_SEARCH_REST_TOKEN!,
+});
+
+// CMDK component catalog index - typed for content fields
+type CMDKContent = {
+  Name: string;
+  Category: string;
+  [key: string]: unknown;
+};
+
+const index = client.index<CMDKContent>("CMDK");
 
 interface SearchDialogProps {
-  onSelect?: (result: SearchResult) => void;
-  placeholder?: string;
   className?: string;
 }
 
-export function SearchDialog({ 
-  onSelect, 
-  placeholder = "Search conversations...",
-  className = ""
-}: SearchDialogProps) {
-  const [open, setOpen] = useState(false);
-  const { results, search } = useSearch();
-
-  useCommandK(() => setOpen(prev => !prev));
-
-  const handleSearch = async (query: string) => {
-    await search({ query });
-  };
-
-  const handleSelect = (result: SearchResult) => {
-    onSelect?.(result);
-    setOpen(false);
-  };
-
+export function SearchDialog({ className = "" }: SearchDialogProps) {
   return (
     <div className={className}>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <SearchTrigger 
-            placeholder={placeholder}
-            onClick={() => setOpen(true)}
-          />
-        </DialogTrigger>
+      <SearchBar.Dialog>
+        <SearchBar.DialogTrigger placeholder="Search components..." />
 
-        <DialogContent className="p-0">
-          <SearchDialogContent
-            results={results}
-            onSearch={handleSearch}
-            onSelect={handleSelect}
-            placeholder={placeholder}
+        <SearchBar.DialogContent>
+          <SearchBar.Input 
+            className="focus:ring-blue-500"
+            placeholder="Type to search components..." 
           />
-        </DialogContent>
-      </Dialog>
+          <SearchBar.Results
+            searchFn={(query) => {
+              return index.search({ query, limit: 10, reranking: true });
+            }}
+          >
+            {(result) => (
+              <SearchBar.Result 
+                value={result.id} 
+                key={result.id}
+              >
+                <SearchBar.ResultIcon>
+                  <FileText className="text-gray-600" />
+                </SearchBar.ResultIcon>
+
+                <SearchBar.ResultContent>
+                  <SearchBar.ResultTitle
+                    className="font-medium text-gray-900"
+                    highlightClassName="decoration-blue-500 text-blue-500"
+                  >
+                    {result.content.Name}
+                  </SearchBar.ResultTitle>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {result.content.Category}
+                  </p>
+                </SearchBar.ResultContent>
+              </SearchBar.Result>
+            )}
+          </SearchBar.Results>
+        </SearchBar.DialogContent>
+      </SearchBar.Dialog>
     </div>
   );
 }

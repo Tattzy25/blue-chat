@@ -1,10 +1,5 @@
 import { searchClient } from './client';
+import { CMDKContent, CMDKMetadata } from './types';
 
-export interface ConversationContent {
-  title: string;
-  content?: string;
-  timestamp?: string;
-  [key: string]: unknown;
-}
-
-export const conversationsIndex = searchClient.index<ConversationContent>('conversations');
+// CMDK component catalog index
+export const cmdkIndex = searchClient.index<CMDKContent, CMDKMetadata>('CMDK');
