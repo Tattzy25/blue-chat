@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { StickySearchBar } from "@/components/sticky-search-bar";
+import { Analytics } from "@vercel/analytics/next";
+import type { ReactNode } from "react";
+import { Toaster } from "@/components/ui/sonner";
+import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const sans = Geist({
+  variable: "--font-sans",
   subsets: ["latin"],
+  weight: "variable",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const mono = Geist_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
+  weight: "variable",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -18,19 +25,18 @@ export const metadata: Metadata = {
   description: "AI-powered chatbot with search functionality",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <StickySearchBar />
-        {children}
-      </body>
-    </html>
-  );
-}
+type RootLayoutProps = {
+  children: ReactNode;
+};
+
+const RootLayout = ({ children }: RootLayoutProps) => (
+  <html lang="en">
+    <body className={cn(sans.variable, mono.variable, "antialiased")}>
+      {children}
+      <Analytics />
+      <Toaster />
+    </body>
+  </html>
+);
+
+export default RootLayout;
